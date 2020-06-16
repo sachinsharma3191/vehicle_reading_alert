@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,4 +40,22 @@ public class VehicleAlertController {
 		return RestResponseBuilder.buildResponseEntity(alerts, "Alerts Info Loaded", HttpStatus.OK);
 	}
 
+	@GetMapping(value = "/alert/{vin}")
+	public ResponseEntity<Object> findAlertByBVin(@PathVariable("vin") String vin) {
+		List<VehicleAlert> alerts = alertService.findAlertsByVehicle(vin);
+		if (alerts.isEmpty()) {
+			return RestResponseBuilder.buildResponseEntity(new ArrayList<>(), "No Data to Fetch", HttpStatus.NOT_FOUND);
+		}
+		return RestResponseBuilder.buildResponseEntity(alerts, "Alerts Info Loaded for " + vin, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/alert/priority/{priority}")
+	public ResponseEntity<Object> findAlertByByPriority(@PathVariable("priority") String priority) {
+		List<VehicleAlert> alerts = alertService.findAlertsByPriority(priority.toUpperCase());
+		if (alerts.isEmpty()) {
+			return RestResponseBuilder.buildResponseEntity(new ArrayList<>(), "No Data to Fetch", HttpStatus.NOT_FOUND);
+		}
+		return RestResponseBuilder.buildResponseEntity(alerts, priority + " Alerts Info Loaded", HttpStatus.OK);
+	}
+	
 }

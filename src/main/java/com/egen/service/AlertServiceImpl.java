@@ -1,7 +1,11 @@
 package com.egen.service;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +42,23 @@ public class AlertServiceImpl implements AlertService {
 		} catch (Exception e) {
 			throw new AlertServicException("Failed to save", e.getCause());
 		}
+	}
+
+	@Override
+	public List<VehicleAlert> findAlertsByVehicle(String vin) {
+		return repo.findByVin(vin);
+	}
+
+	@Override
+	public List<VehicleAlert> findAlertsByPriority(String priority) {
+		List<VehicleAlert> alerts = repo.findByPriority(priority);
+		if (alerts.isEmpty()) {
+			return alerts;
+		}
+		List<VehicleAlert> sortedAlerts = alerts.stream()
+				.filter(alert -> Duration.between(alert.getLastUpdated(), LocalDateTime.now()).toHours() <= 2)
+				.sorted(Comparator.comparing(VehicleAlert::getVin)).collect(Collectors.toList());
+		return sortedAlerts;
 	}
 
 }

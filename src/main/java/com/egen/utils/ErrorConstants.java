@@ -1,7 +1,6 @@
 package com.egen.utils;
 
 public class ErrorConstants {
-	// Exception Error Messages
 	public static final String MALFORMED_JSON = "MALFORMED_JSON";
 	public static final String VALIDATION_ERROR = "VALIDATION_ERROR";
 	public static final String LOGIN_ERROR = "LOGIN_ERROR";

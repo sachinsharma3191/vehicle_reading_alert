@@ -11,5 +11,8 @@ public interface AlertService {
 	public VehicleAlert findOne(String vin);
 
 	public VehicleAlert create(VehicleAlert alert);
+	
+	public List<VehicleAlert> findAlertsByVehicle(String vin);
 
+	public List<VehicleAlert> findAlertsByPriority(String priority);
 }

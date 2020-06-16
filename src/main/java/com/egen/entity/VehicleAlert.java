@@ -1,5 +1,6 @@
 package com.egen.entity;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -9,8 +10,6 @@ import javax.persistence.Id;
 import lombok.*;
 
 @Entity(name = "VEHICLES_ALERT")
-@Setter
-@Getter
 @AllArgsConstructor
 public class VehicleAlert {
 
@@ -24,12 +23,47 @@ public class VehicleAlert {
 	@Column
 	private String vin;
 
-	
+	@Column
+	private LocalDateTime lastUpdated;
+
 	public VehicleAlert() {
 		super();
 		this.id = UUID.randomUUID().toString();
+		this.lastUpdated = LocalDateTime.now();
 	}
-	
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getPriority() {
+		return priority;
+	}
+
+	public void setPriority(String priority) {
+		this.priority = priority;
+	}
+
+	public String getVin() {
+		return vin;
+	}
+
+	public void setVin(String vin) {
+		this.vin = vin;
+	}
+
+	public LocalDateTime getLastUpdated() {
+		return lastUpdated;
+	}
+
+	public void setLastUpdated(LocalDateTime lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
