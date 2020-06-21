@@ -18,8 +18,12 @@ import com.egen.repository.AlertRepo;
 @Service
 public class AlertServiceImpl implements AlertService {
 
-	@Autowired
 	AlertRepo repo;
+	
+	@Autowired
+	public AlertServiceImpl(AlertRepo repo) {
+		this.repo = repo;
+	}
 
 	@Override
 	public List<VehicleAlert> findAll() {
