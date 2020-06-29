@@ -16,10 +16,6 @@ node {
         DOCKER_IMAGE_VERSION = "${BUILD_NUMBER}-${GIT_COMMIT}"
     }
 
-    stage("mvn build") {
-        sh "mvn clean install"
-    }
-
     stage("docker build") {
         sh "docker build -t ${DOCKERHUB_REPO}:${DOCKER_IMAGE_VERSION} ."
     }
