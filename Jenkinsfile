@@ -1,10 +1,12 @@
 node {
-    def DOCKERHUB_REPO = "sachinsharma31261/vehicle_reading_consumer"
-    def DOCKER_SERVICE_ID = "vehicle_reading_consumer"
+    def DOCKERHUB_REPO = "sachinsharma31261/vehicle_reading_producer"
+    def DOCKER_SERVICE_ID = "vehicle_reading_producer"
     def DOCKER_IMAGE_VERSION = ""
 
     stage("clean workspace") {
         deleteDir()
+        echo DOCKERHUB_REPO
+        echo DOCKER_SERVICE_ID
     }
 
     stage("git checkout") {
@@ -35,11 +37,9 @@ node {
                 if [ \$(docker service ls --filter name=${DOCKER_SERVICE_ID} --quiet | wc -l) -eq 0 ]; then
                   docker service create \
                     --replicas 1 \
+                    --env-file ./prop.env \
                     --name ${DOCKER_SERVICE_ID} \
-                    --publish 9045:9045 \
-                    --secret spring.datasource.url \
-                    --secret spring.datasource.username \
-                    --secret spring.datasource.password \
+                    --publish 9040:9040 \
                     ${DOCKERHUB_REPO}:${DOCKER_IMAGE_VERSION}
                 else
                   docker service update \
