@@ -37,7 +37,7 @@ node {
 
     stage("Run Application on Docker Container") {
         try {
-        	sh "docker run -e DB_URL=${DB_URL} -e ACCESS_KEY=${ACCESS_KEY} -e SECRET_KEY=${SECRET_KEY} -e DB_USER=${DB_USER} -e DB_PASSWORD=${DB_PASSWORD} -e VEHICLE_ALERT_TOPIC=${VEHICLE_ALERT_TOPIC} -e SQS_URL=${SQS_URL} -p 9040:9040 -t ${DOCKERHUB_REPO}:${DOCKER_IMAGE_VERSION}"
+        	sh "docker run -t ${DOCKERHUB_REPO}:${DOCKER_IMAGE_VERSION}"
         }
         catch(e) {
         	echo e
