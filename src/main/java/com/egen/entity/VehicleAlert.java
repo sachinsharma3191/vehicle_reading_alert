@@ -101,4 +101,10 @@ public class VehicleAlert {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "VehicleAlert [id=" + id + ", priority=" + priority + ", vin=" + vin + ", lastUpdated=" + lastUpdated
+				+ "]";
+	}
+
 }

@@ -1,6 +1,6 @@
 node {
-    def DOCKERHUB_REPO = "sachinsharma31261/vehicle_alert_service"
-    def DOCKER_SERVICE_ID = "vehicle_alert_service"
+    def DOCKERHUB_REPO = "sachinsharma31261/vehicle_reading_consumer"
+    def DOCKER_SERVICE_ID = "vehicle_reading_consumer"
     def DOCKER_IMAGE_VERSION = ""
 
     stage("clean workspace") {
@@ -36,7 +36,7 @@ node {
                   docker service create \
                     --replicas 1 \
                     --name ${DOCKER_SERVICE_ID} \
-                    --publish 9040:9040 \
+                    --publish 9045:9045 \
                     --secret spring.datasource.url \
                     --secret spring.datasource.username \
                     --secret spring.datasource.password \
