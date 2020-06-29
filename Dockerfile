@@ -4,7 +4,7 @@ FROM maven:3.6.1-jdk-11 AS MAVEN_BUILD
 COPY ./ ./
 
  # package our application code
-RUN mvn package
+RUN mvn clean install -DskipTests=true
  
 # the second stage of our build will use open jdk 8 on alpine 3.9
 FROM openjdk:11
