@@ -2,11 +2,8 @@ FROM maven:3.6.1-jdk-11 AS MAVEN_BUILD
  
 # copy the pom and src code to the container
 COPY ./ ./
- 
-# build all dependencies for offline use
-RUN mvn dependency:go-offline -B 
- 
-# package our application code
+
+ # package our application code
 RUN mvn package -DskipTests=true
  
 # the second stage of our build will use open jdk 8 on alpine 3.9
