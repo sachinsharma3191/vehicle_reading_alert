@@ -10,7 +10,7 @@ RUN mvn dependency:go-offline -B
 COPY ./src ./src
 
 # build for release
-RUN mvn package
+RUN mvn package -Dmaven.test.skip=true
  
 # the second stage of our build will use open jdk 8 on alpine 3.9
 FROM openjdk:11
